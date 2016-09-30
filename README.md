@@ -15,16 +15,12 @@ $ npm install --save-dev gulp-ignite gulp-ignite-istanbul
 ## example
 
 ```js
-'use strict';
-
-import ignite from 'gulp-ignite';
+import { task } from 'gulp-ignite';
+import mocha from 'gulp-ignite-mocha';
 import istanbul from 'gulp-ignite-istanbul';
 
-const tasks = [istanbul];
-const options = {};
-
-ignite.start(tasks, options);
-
+task('test', mocha);
+task('coverage', istanbul, { testTask: 'test' })
 ```
 
 ## usage
@@ -32,7 +28,7 @@ ignite.start(tasks, options);
 Run istanbul code coverage on src files.
 
 ```bash
-$ gulp istanbul --watch
+$ gulp coverage
 ```
 
 ##### options
@@ -43,6 +39,7 @@ $ gulp istanbul --watch
 - `options` - Options to pass through to istanbul. Check out [options](https://github.com/SBoudrias/gulp-istanbul#istanbulopt) to see the full list. (**Default:** `{
     instrumenter: isparta.Instrumenter
   }`)
+- `testTask` - The name of the gulp task to use.
 - `reports` - Options to pass through to istanbul `writeReports`. Check out [options](https://github.com/SBoudrias/gulp-istanbul#istanbulwritereportsopt) to see the full list. (**Default:** `{}`)
 - `thresholds` - Options to pass through to istanbul `enforceThresholds`. Check out [options](https://github.com/SBoudrias/gulp-istanbul#istanbulenforcethresholdsopt) to see the full list. (**Default:** `{}`)
 - `deps` - Any gulp tasks that task would be dependent of. (**Default:** `[]`)
